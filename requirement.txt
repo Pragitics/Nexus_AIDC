@@ -1,5 +1,11 @@
 flask
-python-dotenv
 openai
 aiohttp
 requests
+asyncio
+aiohttp
+mcp==1.9.1
+yfinance==0.2.56
+python-dotenv==1.1.0
+google-adk==1.0.0
+nest-asyncio
