@@ -1,0 +1,52 @@
+import asyncio
+import nest_asyncio
+from mcp import ClientSession
+from mcp.client.sse import sse_client
+
+nest_asyncio.apply()  # Needed to run interactive python
+
+"""
+Make sure:
+1. The server is running before running this script.
+2. The server is configured to use SSE transport.
+3. The server is listening on port 8050.
+
+To run the server:
+uv run server.py
+"""
+
+
+async def main():
+    # Connect to the server using SSE
+    async with sse_client(url = 'https://mcp.kite.trade/sse') as (read_stream, write_stream):
+        async with ClientSession(read_stream, write_stream) as session:
+            # Initialize the connection
+            await session.initialize()
+
+            # List available tools
+            tools_result = await session.list_tools()
+            print("Available tools:")
+            for tool in tools_result.tools:
+                print(f"  - {tool.name}: {tool.description}")
+            result = await session.call_tool("login")
+            print(result)
+            k = input()
+            print("""aaa
+                  aaa
+                  aa
+                  a
+                  
+                  a""")
+            print(result)
+            y = await session.call_tool("get_holdings")
+            print(y)
+
+
+
+
+
+            
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
